@@ -132,7 +132,7 @@ To check your subnet cidr – open your EC2 details in AWS web console and locat
 3. Mount /var/www/ and target the NFS server’s export for apps
 
 - sudo mkdir /var/www
-- sudo mount -t nfs -o rw,nosuid <NFS-Server-Private-IP-Address>:/mnt/apps /var/www
+- sudo mount -t nfs -o rw,nosuid NFS-Server-Private-IP-Address:/mnt/apps /var/www
 
 4. Verify that NFS was mounted successfully by running df -h. Make sure that the changes will persist on Web Server after reboot:
 
@@ -140,7 +140,7 @@ To check your subnet cidr – open your EC2 details in AWS web console and locat
 
 - sudo vi /etc/fstab
 - Add the following line
-- <NFS-Server-Private-IP-Address>:/mnt/apps /var/www nfs defaults 0 0
+- NFS-Server-Private-IP-Address:/mnt/apps /var/www nfs defaults 0 0
 
 5. Install apache and PHP
 
@@ -165,7 +165,7 @@ To check your subnet cidr – open your EC2 details in AWS web console and locat
 
 8. Locate the log folder for Apache on the Web Server and mount it to NFS server’s export for logs. Repeat step №4 to make sure the mount point will persist after reboot.
 
-- sudo mount -t o rw,nosuid <NFS-PRIVATE-I.P>:mnt/logs /var/logs/httpd
+- sudo mount -t nfs o rw,nosuid NFS-PRIVATE-I.P:mnt/logs /var/log/httpd
 ![alt text](./step4%20repeat.PNG)
 
 9. Fork the github from darey repository
@@ -205,7 +205,7 @@ To check your subnet cidr – open your EC2 details in AWS web console and locat
 
 - cd tooling
 - sudo yum install mysql -y
-- mysql -h databse-private-ip-u db-username -p <db-pasword> < tooling-db.sql
+- mysql -h databse-private-ip-u webaccess -p tooling < tooling-db.sql
 
 14. On db-server security group edit inbound rules, enable tcp port 3306
 ![alt text](./db%20inbound%20rules.PNG)
@@ -235,7 +235,6 @@ To check your subnet cidr – open your EC2 details in AWS web console and locat
 
 17. We need to install some php dependecies in other to view our website
 
-- sudo yum install httpd -y
 - sudo yum install <https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm>
 - sudo yum install dnf-utils <http://rpms.remirepo.net/enterprise/remi-release-8.rpm>
 - sudo yum module list php
@@ -245,12 +244,18 @@ To check your subnet cidr – open your EC2 details in AWS web console and locat
 - sudo systemctl start php-fpm
 - sudo systemctl enable php-fpm
 - sudo setsebool -P httpd_execmem 1
+- sudo systemctl restart httpd
+- sudo systemctl status httpd
 
-18. Open the website in your browser
+18. Open the website in your browser http://<Web-Server-Public-IP-Address-or-Public-DNS-Name>/index.php and make sure you can login into the websIte with myuser user.
 
-- http://<Web-Server-Public-IP-Address-or-Public-DNS-Name>/index.php and make sure you can login into the website with myuser user.
 ![alt text](./i.p%20address%20check%20final.PNG)
 ![alt text](./i.p%20address%20check%20final%202.PNG)
 
-Congratulations!
+**WEBSERVER 2**
+
+![alt text](./webserver2.PNG)
+![alt text](./webserver%202%20login.PNG)
+
+**Congratulations!**
 You have just implemented a web solution for a DevOps team using LAMP stack with remote Database and NFS servers.
