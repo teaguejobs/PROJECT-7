@@ -257,5 +257,11 @@ To check your subnet cidr – open your EC2 details in AWS web console and locat
 ![alt text](./webserver2.PNG)
 ![alt text](./webserver%202%20login.PNG)
 
+**WEBSERVER 3**
+
+![alt text](./webserver3%20form.PNG)
+
+![alt text](./webserver%203%20login.PNG)
+
 **Congratulations!**
 You have just implemented a web solution for a DevOps team using LAMP stack with remote Database and NFS servers.
