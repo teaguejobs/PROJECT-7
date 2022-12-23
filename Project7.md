@@ -8,10 +8,11 @@
 2. ssh into the NFS machine and create our disk partition
 
 - sudo gdisk /dev/xvdf /dev/xvdg /dev/xvdh
+
 ![alt text](./ebs%20volume.PNG)
 ![alt text](./disk%20partition.PNG)
 
-1. Install lvm pacakage
+3. Install lvm pacakage
 
 - sudo yum install lvm2 -y
 - sudo lvmdiskan
@@ -98,9 +99,10 @@ To check your subnet cidr – open your EC2 details in AWS web console and locat
 14. Check which port is used by NFS and open it using Security Groups (add new Inbound Rule)
 
 - rpcinfo -p | grep nfs
+
 ![alt text](./nfs%20port.PNG)
 
-15. In order for NFS server to be accessible from your client, you must also open following ports: TCP 111, UDP 111, UDP 2049, TCP 2049
+15.  In order for NFS server to be accessible from your client, you must also open following ports: TCP 111, UDP 111, UDP 2049, TCP 2049
 
 - ![alt text](./port%20opened.PNG)
 
